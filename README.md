@@ -9,3 +9,5 @@ use "pip install requests", "pip install folium", and "pip install polyline" on 
 use "python" command instead of "python3"
 
 use "KAHIT_SAAN.py"
+
+test
