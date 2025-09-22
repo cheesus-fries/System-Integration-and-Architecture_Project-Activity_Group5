@@ -35,7 +35,7 @@ def geocoding(location, key):
         lat = "null"
         lng = "null"
         new_loc = location
-        print("❌ No results found for:", location)
+        print("No results found for:", location)
 
         if json_status != 200:
             print("Geocode API status: " + str(json_status) +
@@ -62,7 +62,7 @@ while True:
 
         # Show summary first for all profiles
         print("\n=================================================")
-        print(f"🚗🚴🚶 Distance & Duration Summary from {orig[3]} to {dest[3]}")
+        print(f"Distance & Duration Summary from {orig[3]} to {dest[3]}")
         print("=================================================")
         profile = ["car", "bike", "foot"]
         available_modes = []  # keep track of successful modes
@@ -83,7 +83,7 @@ while True:
                       f"{hr:02d}:{mins:02d}:{sec:02d}")
                 available_modes.append(mode)
             else:
-                print(f"{mode.title():<5} ➝ ❌ Error: {paths_data.get('message','Unknown error')}")
+                print(f"{mode.title():<5} ➝ Error: {paths_data.get('message','Unknown error')}")
 
         # Let user choose after seeing all results
         print("\nAvailable profiles:", ", ".join(available_modes))
@@ -109,4 +109,4 @@ while True:
 
         print("=============================================")
     else:
-        print("❌ Routing skipped due to invalid geocoding results.")
+        print("Routing skipped due to invalid geocoding results.")
