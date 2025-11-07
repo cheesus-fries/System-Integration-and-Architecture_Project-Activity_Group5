@@ -61,7 +61,8 @@ class TestKahitSaan(unittest.TestCase):
         try:
             with patch('builtins.open', mock_open()) as mock_file:
                 create_map(orig, dest, "car")
-                mock_file.assert_called_with("KAHIT_SAAN_MAP.html", "r")  # Ensure map file is opened for reading
+                # Ensure that the map file is being opened for writing and not reading
+                mock_file.assert_called_with("KAHIT_SAAN_MAP.html", "w")  # Ensure map file is opened for writing
         except Exception as e:
             self.fail(f"Map file creation failed with error: {e}")
 
