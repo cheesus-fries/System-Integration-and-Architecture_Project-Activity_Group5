@@ -58,7 +58,10 @@ class TestKahitSaan(unittest.TestCase):
                 }
             ]
         }
-        mock_get.return_value = mock_route_response  # Return the mocked route response
+
+        # Ensure that when route_url_with_params is called, mock_get returns mock_route_response
+        # This is the critical line that mocks the route request.
+        mock_get.return_value = mock_route_response
 
         # Test geocoding for both locations
         orig = geocoding("University of Santo Tomas, Manila", "your_api_key")
