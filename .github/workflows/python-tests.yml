@@ -1,0 +1,44 @@
+name: Python Tests
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        python -m unittest discover -s tests -p "test_KAHIT_SAAN.py"
+
+  # This job checks the results of the tests but doesn't actually "disable merge" (see note below)
+  status:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+    - name: Check Test Results
+      run: |
+        if [ $? -ne 0 ]; then
+          echo "Tests failed, disabling merge" && exit 1
+        else
+          echo "Tests passed, enabling merge"
