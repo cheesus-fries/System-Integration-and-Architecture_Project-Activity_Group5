@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from ..KAHIT_SAAN import geocoding, create_map
+from KAHIT_SAAN import geocoding, create_map
 
 
 class TestKahitSaan(unittest.TestCase):
