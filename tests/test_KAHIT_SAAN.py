@@ -1,9 +1,9 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, mock_open
 from KAHIT_SAAN import geocoding, create_map
 
 class TestKahitSaan(unittest.TestCase):
-    
+
     # Test for successful geocoding response (Mocked for Manila, Philippines)
     @patch('builtins.input', side_effect=[
         "Manila, Philippines",  # Starting location (Manila)
