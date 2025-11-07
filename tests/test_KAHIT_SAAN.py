@@ -7,7 +7,7 @@ class TestKahitSaan(unittest.TestCase):
     # Test for geocoding and map creation
     @patch('builtins.input', side_effect=[
         "Manila, Philippines",  # Starting location (Manila)
-        "Vigan, Ilocos Norte",  # Destination location (Vigan)
+        "Vigan, Ilocos Sur",  # Destination location (Vigan)
         "car",                   # Travel mode (car)
         "yes"                    # Generate map (yes)
     ])  
@@ -48,7 +48,7 @@ class TestKahitSaan(unittest.TestCase):
 
         # Test geocoding for both locations
         orig = geocoding("Manila, Philippines", "your_api_key")
-        dest = geocoding("Vigan, Ilocos Norte", "your_api_key")
+        dest = geocoding("Vigan, Ilocos Sur", "your_api_key")
 
         # Assertions for geocoding responses
         self.assertEqual(orig[0], 200)
@@ -59,7 +59,7 @@ class TestKahitSaan(unittest.TestCase):
         self.assertEqual(dest[0], 200)
         self.assertEqual(dest[1], 17.5764)  # Should be Vigan latitude
         self.assertEqual(dest[2], 120.3827)  # Should be Vigan longitude
-        self.assertEqual(dest[3], "Vigan, Ilocos Norte, Philippines")
+        self.assertEqual(dest[3], "Vigan, Ilocos Sur, Philippines")
 
         # Now simulate map creation (check if the map file is generated)
         try:
