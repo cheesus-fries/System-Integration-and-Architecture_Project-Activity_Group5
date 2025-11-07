@@ -46,6 +46,20 @@ class TestKahitSaan(unittest.TestCase):
         # Set the mock responses to be returned for the two geocoding calls
         mock_get.side_effect = [mock_manila_response, mock_vigan_response]  # First call returns Manila, second returns Vigan
 
+        # Mock the response for the route (for map generation)
+        mock_route_response = MagicMock()
+        mock_route_response.status_code = 200
+        mock_route_response.json.return_value = {
+            "paths": [
+                {
+                    "distance": 20000,  # Dummy data for distance
+                    "time": 3600,  # Dummy data for time
+                    "instructions": "Follow the main road"  # Dummy instructions
+                }
+            ]
+        }
+        mock_get.return_value = mock_route_response  # Return the mocked route response
+
         # Test geocoding for both locations
         orig = geocoding("Manila, Philippines", "your_api_key")
         dest = geocoding("Vigan, Ilocos Sur", "your_api_key")
