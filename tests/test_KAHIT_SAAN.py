@@ -7,7 +7,7 @@ class TestKahitSaan(unittest.TestCase):
     # Test for geocoding and map creation
     @patch('builtins.input', side_effect=[
         "University of Santo Tomas, Manila",  # Starting location (UST, Manila)
-        "SM North Edsa, Quezon City",  # Destination location (SM North Edsa, Manila)
+        "SM North Edsa, Quezon City",  # Destination location (SM North Edsa, Quezon City)
         "car",                   # Travel mode (car)
         "yes"                    # Generate map (yes)
     ])  
@@ -34,7 +34,7 @@ class TestKahitSaan(unittest.TestCase):
         mock_sm_north_response.json.return_value = {
             "hits": [
                 {
-                    "point": {"lat": 14.6535, "lng": 121.0305},  # Coordinates for SM North Edsa, Manila
+                    "point": {"lat": 14.6535, "lng": 121.0305},  # Coordinates for SM North Edsa, Quezon City
                     "name": "SM North Edsa",
                     "osm_value": "address",
                     "country": "Philippines",
@@ -58,8 +58,6 @@ class TestKahitSaan(unittest.TestCase):
                 }
             ]
         }
-        
-        # Ensure that mock_get is called for the route too (in create_map)
         mock_get.return_value = mock_route_response  # Return the mocked route response
 
         # Test geocoding for both locations
