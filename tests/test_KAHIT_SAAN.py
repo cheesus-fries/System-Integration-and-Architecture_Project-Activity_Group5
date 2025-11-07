@@ -7,7 +7,7 @@ class TestKahitSaan(unittest.TestCase):
     # Test for geocoding and map creation
     @patch('builtins.input', side_effect=[
         "University of Santo Tomas, Manila",  # Starting location (UST, Manila)
-        "SM North Edsa, Manila",  # Destination location (SM North Edsa, Manila)
+        "SM North Edsa, Quezon City",  # Destination location (SM North Edsa, Manila)
         "car",                   # Travel mode (car)
         "yes"                    # Generate map (yes)
     ])  
@@ -62,7 +62,7 @@ class TestKahitSaan(unittest.TestCase):
 
         # Test geocoding for both locations
         orig = geocoding("University of Santo Tomas, Manila", "your_api_key")
-        dest = geocoding("SM North Edsa, Manila", "your_api_key")
+        dest = geocoding("SM North Edsa, Quezon City", "your_api_key")
 
         # Assertions for geocoding responses
         self.assertEqual(orig[0], 200)
