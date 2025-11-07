@@ -58,6 +58,8 @@ class TestKahitSaan(unittest.TestCase):
                 }
             ]
         }
+        
+        # Ensure that mock_get is called for the route too (in create_map)
         mock_get.return_value = mock_route_response  # Return the mocked route response
 
         # Test geocoding for both locations
