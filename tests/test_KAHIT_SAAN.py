@@ -6,21 +6,21 @@ class TestKahitSaan(unittest.TestCase):
 
     # Test for geocoding and map creation
     @patch('builtins.input', side_effect=[
-        "Manila, Philippines",  # Starting location (Manila)
-        "Vigan, Ilocos Sur",  # Destination location (Vigan)
+        "University of Santo Tomas, Manila",  # Starting location (UST, Manila)
+        "SM North Edsa, Manila",  # Destination location (SM North Edsa, Manila)
         "car",                   # Travel mode (car)
         "yes"                    # Generate map (yes)
     ])  
     @patch('requests.get')  # Mock the requests.get method to simulate API calls
     def test_geocoding_and_map_creation(self, mock_get, mock_input):
-        # Mock the response for Manila
-        mock_manila_response = MagicMock()
-        mock_manila_response.status_code = 200
-        mock_manila_response.json.return_value = {
+        # Mock the response for University of Santo Tomas, Manila
+        mock_ust_response = MagicMock()
+        mock_ust_response.status_code = 200
+        mock_ust_response.json.return_value = {
             "hits": [
                 {
-                    "point": {"lat": 14.5995, "lng": 120.9842},  # Coordinates for Manila
-                    "name": "Manila",
+                    "point": {"lat": 14.6000, "lng": 120.9822},  # Coordinates for UST, Manila
+                    "name": "University of Santo Tomas",
                     "osm_value": "address",
                     "country": "Philippines",
                     "state": "National Capital Region"
@@ -28,23 +28,23 @@ class TestKahitSaan(unittest.TestCase):
             ]
         }
         
-        # Mock the response for Vigan
-        mock_vigan_response = MagicMock()
-        mock_vigan_response.status_code = 200
-        mock_vigan_response.json.return_value = {
+        # Mock the response for SM North Edsa, Manila
+        mock_sm_north_response = MagicMock()
+        mock_sm_north_response.status_code = 200
+        mock_sm_north_response.json.return_value = {
             "hits": [
                 {
-                    "point": {"lat": 17.5764, "lng": 120.3827},  # Coordinates for Vigan
-                    "name": "Vigan",
+                    "point": {"lat": 14.6535, "lng": 121.0305},  # Coordinates for SM North Edsa, Manila
+                    "name": "SM North Edsa",
                     "osm_value": "address",
                     "country": "Philippines",
-                    "state": "Ilocos Sur"
+                    "state": "National Capital Region"
                 }
             ]
         }
 
         # Set the mock responses to be returned for the two geocoding calls
-        mock_get.side_effect = [mock_manila_response, mock_vigan_response]  # First call returns Manila, second returns Vigan
+        mock_get.side_effect = [mock_ust_response, mock_sm_north_response]  # First call returns UST, second returns SM North Edsa
 
         # Mock the response for the route (for map generation)
         mock_route_response = MagicMock()
@@ -52,28 +52,28 @@ class TestKahitSaan(unittest.TestCase):
         mock_route_response.json.return_value = {
             "paths": [
                 {
-                    "distance": 20000,  # Dummy data for distance
-                    "time": 3600,  # Dummy data for time
-                    "instructions": "Follow the main road"  # Dummy instructions
+                    "distance": 5000,  # Dummy data for distance
+                    "time": 900,  # Dummy data for time
+                    "instructions": "Continue straight to SM North Edsa"  # Dummy instructions
                 }
             ]
         }
         mock_get.return_value = mock_route_response  # Return the mocked route response
 
         # Test geocoding for both locations
-        orig = geocoding("Manila, Philippines", "your_api_key")
-        dest = geocoding("Vigan, Ilocos Sur", "your_api_key")
+        orig = geocoding("University of Santo Tomas, Manila", "your_api_key")
+        dest = geocoding("SM North Edsa, Manila", "your_api_key")
 
         # Assertions for geocoding responses
         self.assertEqual(orig[0], 200)
-        self.assertEqual(orig[1], 14.5995)  # Should be Manila latitude
-        self.assertEqual(orig[2], 120.9842)  # Should be Manila longitude
-        self.assertEqual(orig[3], "Manila, National Capital Region, Philippines")
+        self.assertEqual(orig[1], 14.6000)  # UST latitude
+        self.assertEqual(orig[2], 120.9822)  # UST longitude
+        self.assertEqual(orig[3], "University of Santo Tomas, National Capital Region, Philippines")
 
         self.assertEqual(dest[0], 200)
-        self.assertEqual(dest[1], 17.5764)  # Should be Vigan latitude
-        self.assertEqual(dest[2], 120.3827)  # Should be Vigan longitude
-        self.assertEqual(dest[3], "Vigan, Ilocos Sur, Philippines")
+        self.assertEqual(dest[1], 14.6535)  # SM North Edsa latitude
+        self.assertEqual(dest[2], 121.0305)  # SM North Edsa longitude
+        self.assertEqual(dest[3], "SM North Edsa, National Capital Region, Philippines")
 
         # Now simulate map creation (check if the map file is generated)
         try:
