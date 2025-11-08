@@ -10,4 +10,8 @@ use "python" command instead of "python3"
 
 use "KAHIT_SAAN.py"
 
-test
+
+
+------ NEW -------
+
+pip install flask

@@ -1,0 +1,351 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAHIT SAAN</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0F151E;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at 20% 50%, rgba(108, 143, 167, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(108, 143, 167, 0.08) 0%, transparent 50%);
+                pointer-events: none;
+                z-index: 0;
+            }
+
+        .container {
+            margin-top: 30px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-section h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #6C8FA7;
+            margin-bottom: 10px;
+        }
+
+        .header-section p {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: #18202F;
+            border: 1px solid #6C8FA7;
+            border-radius: 20px;
+            padding: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+            .form-group label {
+                color: #c5c5d8;
+                font-weight: 600;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                font-size: 0.95rem;
+            }
+
+                .form-group label i {
+                    margin-right: 10px;
+                    color: #6C8FA7;
+                }
+
+        .form-control {
+            background: #0F151E;
+            color: AntiqueWhite;
+            border: 2px solid #6C8FA7;
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 1rem;
+        }
+
+            .form-control:focus {
+                background: #18202F;
+                border-color: #6C8FA7;
+                color: white;
+                outline: none;
+            }
+
+            .form-control::placeholder {
+                color: #6a7a8a;
+            }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #6C8FA7;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+            .btn-primary:hover {
+                background: #6C8FA7;
+            }
+
+            .btn-primary:active {
+                background: #6C8FA7;
+            }
+
+        .alert {
+            border-radius: 12px;
+            border: none;
+            padding: 18px 20px;
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-danger {
+            background: #c62828;
+            color: white;
+            border: 1px solid #d32f2f;
+        }
+
+        .results-section {
+            margin-top: 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .results-card {
+            background: #18202F;
+            border: 1px solid #6C8FA7;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+            .results-card h3 {
+                color: #6C8FA7;
+                font-weight: 700;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+            }
+
+                .results-card h3 i {
+                    margin-right: 12px;
+                }
+
+        .route-summary {
+            background: rgba(108, 143, 167, 0.15);
+            border-left: 4px solid #6C8FA7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .route-step {
+            background: #0F151E;
+            border-left: 3px solid #6C8FA7;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 50px;
+        }
+
+            .route-step::before {
+                content: attr(data-step);
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 28px;
+                height: 28px;
+                background: #6C8FA7;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.85rem;
+                font-weight: 700;
+            }
+
+        iframe {
+            border: none;
+            width: 100%;
+            height: 600px;
+            border-radius: 15px;
+        }
+
+        .icon-input-group {
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            iframe {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <h1><i class="fas fa-map-marked-alt"></i> KAHIT SAAN</h1>
+            <p>Your Smart Route Planning Companion</p>
+        </div>
+
+        <!-- Display error message -->
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="start_location">
+                        <i class="fas fa-map-marker-alt"></i> Starting Location
+                    </label>
+                    <input type="text" class="form-control" id="start_location" name="start_location"
+                           value="{{ start_location or '' }}" placeholder="Enter your starting point" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dest_location">
+                        <i class="fas fa-flag-checkered"></i> Destination
+                    </label>
+                    <input type="text" class="form-control" id="dest_location" name="dest_location"
+                           value="{{ dest_location or '' }}" placeholder="Where do you want to go?" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="vehicle_mode">
+                        <i class="fas fa-car"></i> Transportation Mode
+                    </label>
+                    <select class="form-control" id="vehicle_mode" name="vehicle_mode" required>
+                        <option value="" disabled selected>Choose your mode of transport</option>
+                        <option value="car" {% if vehicle_mode=="car" %}selected{% endif %}>Car</option>
+                        <option value="bike" {% if vehicle_mode=="bike" %}selected{% endif %}>Bike</option>
+                        <option value="foot" {% if vehicle_mode=="foot" %}selected{% endif %}>Walking</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-route"></i> Plan My Route
+                </button>
+            </form>
+        </div>
+
+        {% if result %}
+        <div class="results-section">
+            <div class="results-card">
+                <h3><i class="fas fa-info-circle"></i> Route Summary</h3>
+                <div class="route-summary">
+                    <p>{{ result }}</p>
+                </div>
+            </div>
+
+            <div class="results-card">
+                <h3><i class="fas fa-map"></i> Interactive Map</h3>
+                <iframe src="{{ map_filename }}"></iframe>
+            </div>
+
+            <div class="results-card">
+                <h3><i class="fas fa-list-ol"></i> Step-by-Step Directions</h3>
+                <div class="route-steps">
+                    {% for step in instructions %}
+                    <div class="route-step" data-step="{{ loop.index }}">{{ step }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
